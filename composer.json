@@ -1,0 +1,24 @@
+{
+    "name": "mohanad/autochartist",
+    "description": "Autochartist Laravel SDK",
+    "type": "library",
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^12.0|^13.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mohanad\\Autochartist\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+        "providers": [
+            "Mohanad\\Autochartist\\AutochartistServiceProvider"
+        ],
+        "aliases": {
+            "Autochartist": "Mohanad\\Autochartist\\Facades\\Autochartist"
+        }
+    }
+    }
+}
