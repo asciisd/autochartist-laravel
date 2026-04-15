@@ -10,6 +10,7 @@ class SentimentRequest
         public readonly ?string $sentiment = null,
         public readonly ?bool $strongSentiment = null,
         public readonly ?bool $includeDetail = null,
+        public readonly ?string $expire = null,
     ) {}
 
     public function toArray(): array
@@ -20,6 +21,7 @@ class SentimentRequest
             'sentiment' => $this->sentiment,
             'strong_sentiment' => $this->strongSentiment,
             'include_detail' => $this->includeDetail,
+            'expire' => $this->expire,
         ], fn ($value) => $value !== null);
     }
 

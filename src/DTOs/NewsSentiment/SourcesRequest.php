@@ -4,9 +4,15 @@ namespace Mohanad\Autochartist\DTOs\NewsSentiment;
 
 class SourcesRequest
 {
+    public function __construct(
+        public readonly ?string $expire = null,
+    ) {}
+
     public function toArray(): array
     {
-        return [];
+        return array_filter([
+            'expire' => $this->expire,
+        ], fn ($value) => $value !== null);
     }
 
     /**

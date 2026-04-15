@@ -8,13 +8,13 @@ class TradeSetupsRequest
         public readonly ?string $timezone = null,
         public readonly ?string $locale = null,
         public readonly ?string $locales = null,
-        public readonly ?string $brokerId = null,
         public readonly ?string $group = null,
         public readonly ?bool $includeDetail = null,
         public readonly ?bool $includeDrawing = null,
         public readonly ?int $pageLimit = null,
         public readonly ?int $pageOffset = null,
         public readonly ?string $since = null,
+        public readonly ?string $expire = null,
     ) {}
 
     public function toArray(): array
@@ -23,8 +23,8 @@ class TradeSetupsRequest
             'timezone' => $this->timezone,
             'locale' => $this->locale,
             'locales' => $this->locales,
-            'broker_id' => $this->brokerId,
             'group' => $this->group,
+            'expire' => $this->expire,
             'include_detail' => $this->includeDetail,
             'include_drawing' => $this->includeDrawing,
             'page_limit' => $this->pageLimit,

@@ -10,6 +10,7 @@ class ChartImageRequest
         public readonly ?int $width = 320,
         public readonly ?int $height = 240,
         public readonly ?string $locale = null,
+        public readonly ?string $expire = null,
     ) {}
 
     public function toArray(): array
@@ -18,6 +19,7 @@ class ChartImageRequest
             'width' => $this->width,
             'height' => $this->height,
             'locale' => $this->locale,
+            'expire' => $this->expire,
         ], fn ($value) => $value !== null);
     }
 

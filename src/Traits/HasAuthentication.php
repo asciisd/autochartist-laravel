@@ -5,18 +5,17 @@ namespace Mohanad\Autochartist\Traits;
 trait HasAuthentication
 {
     /**
-     * Get default authentication and configuration parameters.
+     * Get authentication parameters only.
      */
-    protected function getDefaultParams(): array
+    protected function getDefaultParams(?string $expiry = null): array
     {
         $user = config('autochartist.user');
         $accountType = config('autochartist.account_type');
-        $expiry = config('autochartist.expiry');
         $secretKey = config('autochartist.secret_key');
+        $expiry = $expiry ?? config('autochartist.expiry');
 
         // Generate token: MD5(user|account_type|expire|secretkey)
-        // $token = md5("{$user}|{$accountType}|{$expiry}{$secretKey}");
-        $token = "5c2d63d7ba11320ad86b89384bd12b3";
+        $token = md5("{$user}|{$accountType}|{$expiry}|{$secretKey}");
 
         return array_filter([
             'broker_id' => config('autochartist.broker_id'),
@@ -24,9 +23,6 @@ trait HasAuthentication
             'account_type' => $accountType,
             'expire' => $expiry,
             'token' => $token,
-            'timezone' => config('autochartist.timezone', 'UTC'),
-            'locale' => config('autochartist.locale', 'en'),
-            'locales' => config('autochartist.locales') ? implode(',', array_keys(config('autochartist.locales'))) : null,
         ], fn ($value) => $value !== null);
     }
 }

@@ -26,7 +26,7 @@ class TechnicalAnalysisService
         $request = $request ?? new TradeSetupsRequest;
 
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams($request->expire),
             $request->toArray()
         );
 
@@ -39,9 +39,14 @@ class TechnicalAnalysisService
     public function getPatternDetail(PatternDetailRequest $request): array
     {
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams($request->expire),
             $request->toArray()
         );
+
+        $baseUrl = config('autochartist.base_url');
+        $fullUrl = $baseUrl.$request->getPath().'?'.http_build_query($query);
+
+        logger('Autochartist Pattern Detail API Call', ['url' => $fullUrl]);
 
         return $this->client->get($request->getPath(), $query);
     }
@@ -51,7 +56,7 @@ class TechnicalAnalysisService
      */
     public function getDrawingData(PatternDetailRequest $request): array
     {
-        $query = $this->getDefaultParams();
+        $query = $this->getDefaultParams($request->expire);
 
         $path = "/to/resources/results/detail/drawing-data/{$request->type}/{$request->uid}";
 
@@ -64,13 +69,14 @@ class TechnicalAnalysisService
     public function getChartImageUrl(ChartImageRequest $request): string
     {
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams($request->expire),
             $request->toArray()
         );
 
         $baseUrl = config('autochartist.base_url');
         $queryString = http_build_query($query);
+        $fullUrl = $baseUrl.$request->getPath().'?'.$queryString;
 
-        return $baseUrl.$request->getPath().'?'.$queryString;
+        return $fullUrl;
     }
 }

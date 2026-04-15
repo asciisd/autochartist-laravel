@@ -6,13 +6,15 @@ class ExtremeScoreChangeRequest
 {
     public function __construct(
         public readonly string $dateInput,
+        public readonly ?string $expire = null,
     ) {}
 
     public function toArray(): array
     {
-        return [
+        return array_filter([
             'date_input' => $this->dateInput,
-        ];
+            'expire' => $this->expire,
+        ], fn ($value) => $value !== null);
     }
 
     /**

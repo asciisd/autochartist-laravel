@@ -25,12 +25,12 @@ class NewsSentimentService
      */
     public function getSentiment(?SentimentRequest $request = null): array
     {
-        $request = $request ?? new SentimentRequest;
-
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams($request->expire),
             $request->toArray()
         );
+
+        unset($query['account_type']);
 
         return $this->client->get($request->getPath(), $query);
     }
@@ -42,9 +42,11 @@ class NewsSentimentService
     public function getExtremeScoreChange(ExtremeScoreChangeRequest $request): array
     {
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams($request->expire),
             $request->toArray()
         );
+
+        unset($query['account_type']);
 
         return $this->client->get($request->getPath(), $query);
     }
@@ -56,7 +58,7 @@ class NewsSentimentService
     public function getSignificantSentiment(SignificantSentimentRequest $request): array
     {
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams($request->expire),
             $request->toArray()
         );
 
@@ -69,9 +71,11 @@ class NewsSentimentService
     public function getHistory(HistoryRequest $request): array
     {
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams($request->expire),
             $request->toArray()
         );
+
+        unset($query['account_type']);
 
         return $this->client->get($request->getPath(), $query);
     }
@@ -80,11 +84,14 @@ class NewsSentimentService
      * Get available sectors.
      * Returns a list of available sectors for filtering sentiment data.
      */
-    public function getSectors(?SectorsRequest $request = null): array
+    public function getSectors(SectorsRequest $request): array
     {
-        $request = $request ?? new SectorsRequest;
+        $query = array_merge(
+            $this->getDefaultParams($request->expire),
+            $request->toArray()
+        );
 
-        $query = $this->getDefaultParams();
+        unset($query['account_type']);
 
         return $this->client->get($request->getPath(), $query);
     }
@@ -93,11 +100,14 @@ class NewsSentimentService
      * Get available news sources.
      * Returns a list of available news sources used for sentiment analysis.
      */
-    public function getSources(?SourcesRequest $request = null): array
+    public function getSources(SourcesRequest $request): array
     {
-        $request = $request ?? new SourcesRequest;
+        $query = array_merge(
+            $this->getDefaultParams($request->expire),
+            $request->toArray()
+        );
 
-        $query = $this->getDefaultParams();
+        unset($query['account_type']);
 
         return $this->client->get($request->getPath(), $query);
     }

@@ -39,12 +39,10 @@ class MarketSnapshotService
      * - name: Report name
      * - last_updated: Last update timestamp
      */
-    public function getSnapshotTypes(?SnapshotTypesRequest $request = null): array
+    public function getSnapshotTypes(SnapshotTypesRequest $request): array
     {
-        $request = $request ?? new SnapshotTypesRequest;
-
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams(request('expire')),
             $request->toArray()
         );
 
@@ -60,14 +58,14 @@ class MarketSnapshotService
      * - generated: Generation timestamp
      * - session: Trading session (US/EU/AS)
      */
-    public function getSnapshotInstances(?SnapshotInstancesRequest $request = null): array
+    public function getSnapshotInstances(SnapshotInstancesRequest $request): array
     {
-        $request = $request ?? new SnapshotInstancesRequest;
-
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams($request->expire),
             $request->toArray()
         );
+
+        // dd(self::ENDPOINT_SNAPSHOT_INSTANCES, $query);
 
         return $this->client->get(self::ENDPOINT_SNAPSHOT_INSTANCES, $query);
     }
@@ -85,7 +83,7 @@ class MarketSnapshotService
     public function getSnapshot(SnapshotRequest $request): array
     {
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams($request->expire),
             $request->toArray()
         );
 
@@ -160,7 +158,7 @@ class MarketSnapshotService
     public function getEmailSnapshot(EmailSnapshotRequest $request): array
     {
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams($request->expire),
             $request->toArray()
         );
 

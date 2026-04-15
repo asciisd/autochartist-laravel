@@ -7,13 +7,13 @@ class PatternDetailRequest
     public function __construct(
         public readonly string $type,
         public readonly string $uid,
-        public readonly ?string $locales = null,
+        public readonly ?string $expire = null,
     ) {}
 
     public function toArray(): array
     {
         return array_filter([
-            'locales' => $this->locales,
+            'expire' => $this->expire,
         ], fn ($value) => $value !== null);
     }
 
