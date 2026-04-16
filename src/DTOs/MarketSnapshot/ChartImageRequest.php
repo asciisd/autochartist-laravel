@@ -10,18 +10,27 @@ namespace Mohanad\Autochartist\DTOs\MarketSnapshot;
 readonly class ChartImageRequest
 {
     public function __construct(
+        public int $reportId,
+        public string $reportUid,
         public string $symbolReportId,
+        public string $imageFormat = 'png',
         public ?int $width = 430,
         public ?int $height = 300,
         public ?string $locale = null,
+        public ?bool $small = null,
+        public ?string $expire = null,
     ) {}
 
     public function toArray(): array
     {
         return array_filter([
-            'width' => $this->width,
-            'height' => $this->height,
-            'locale' => $this->locale,
+            'report_id' => $this->reportId,
+            'reportuid' => $this->reportUid,
+            'symbol_report_id' => $this->symbolReportId,
+            'w' => $this->width,
+            'h' => $this->height,
+            'small' => $this->small,
+            'expire' => $this->expire,
         ], fn ($value) => $value !== null);
     }
 
@@ -30,6 +39,6 @@ readonly class ChartImageRequest
      */
     public function getPath(): string
     {
-        return "/mr/api/charts/{$this->symbolReportId}";
+        return "/mr/api/reports/{$this->reportUid}/{$this->symbolReportId}.{$this->imageFormat}";
     }
 }

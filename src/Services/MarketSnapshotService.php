@@ -110,18 +110,20 @@ class MarketSnapshotService
     /**
      * Get chart image URL for a specific symbol report from snapshot.
      *
-     * @param  ChartImageRequest  $request  Request with symbolReportId, dimensions, locale
+     * @param  ChartImageRequest  $request  Request with reportUid, symbolReportId, imageFormat, dimensions
      * @return string Chart image URL
      */
     public function getChartImageUrl(ChartImageRequest $request): string
     {
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams($request->expire),
             $request->toArray()
         );
 
         $baseUrl = config('autochartist.base_url');
         $queryString = http_build_query($query);
+
+        // dd($baseUrl.$request->getPath().'?'.$queryString, $query);
 
         return $baseUrl.$request->getPath().'?'.$queryString;
     }
@@ -135,12 +137,12 @@ class MarketSnapshotService
      * - Support/resistance levels
      * - Technical indicators
      *
-     * @param  PatternDetailRequest  $request  Request with symbolReportId, locale
+     * @param  PatternDetailRequest  $request  Request with reportId, reportUid, symbolReportId, locale
      */
     public function getPatternDetail(PatternDetailRequest $request): array
     {
         $query = array_merge(
-            $this->getDefaultParams(),
+            $this->getDefaultParams($request->expire),
             $request->toArray()
         );
 
@@ -161,7 +163,7 @@ class MarketSnapshotService
             $this->getDefaultParams($request->expire),
             $request->toArray()
         );
-
+        
         return $this->client->get($request->getPath(), $query);
     }
 }

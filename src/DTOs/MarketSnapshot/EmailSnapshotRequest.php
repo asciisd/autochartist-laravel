@@ -13,13 +13,16 @@ readonly class EmailSnapshotRequest
         public int $reportId,
         public string $reportUid = 'latest',
         public ?string $locale = null,
+        public ?string $expire = null,
     ) {}
 
     public function toArray(): array
     {
         return array_filter([
             'report_id' => $this->reportId,
+            'reportuid' => $this->reportUid,
             'locale' => $this->locale,
+            'expire' => $this->expire,
         ], fn ($value) => $value !== null);
     }
 
@@ -28,10 +31,6 @@ readonly class EmailSnapshotRequest
      */
     public function getPath(): string
     {
-        if ($this->reportUid === 'latest') {
-            return "/mr/api/reports/{$this->reportId}/latest/email";
-        }
-
-        return "/mr/api/reports/{$this->reportId}/{$this->reportUid}/email";
+        return "/mr/api/reports/{$this->reportUid}/email";
     }
 }
