@@ -22,7 +22,7 @@ A Laravel package for integrating with the Autochartist API. This SDK provides a
 Install the package via Composer:
 
 ```bash
-composer require mohanad/autochartist
+composer require asciisd/autochartist
 ```
 
 The service provider will be automatically registered.
@@ -356,9 +356,5 @@ For API documentation and support, visit:
 - [Autochartist API Documentation](https://support.autochartist.com/)
 - [Security Token Generation](https://support.autochartist.com/en/knowledgebase/article/security-token-generation)
 
-## Credits
-
-- [Mohanad](https://github.com/mohanad)
-- [All Contributors](../../contributors)
 
 # autochartist-laravel
