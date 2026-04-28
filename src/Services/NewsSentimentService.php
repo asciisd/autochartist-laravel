@@ -1,15 +1,15 @@
 <?php
 
-namespace Mohanad\Autochartist\Services;
+namespace Asciisd\Autochartist\Services;
 
-use Mohanad\Autochartist\Contracts\AutochartistClientInterface;
-use Mohanad\Autochartist\DTOs\NewsSentiment\ExtremeScoreChangeRequest;
-use Mohanad\Autochartist\DTOs\NewsSentiment\HistoryRequest;
-use Mohanad\Autochartist\DTOs\NewsSentiment\SectorsRequest;
-use Mohanad\Autochartist\DTOs\NewsSentiment\SentimentRequest;
-use Mohanad\Autochartist\DTOs\NewsSentiment\SignificantSentimentRequest;
-use Mohanad\Autochartist\DTOs\NewsSentiment\SourcesRequest;
-use Mohanad\Autochartist\Traits\HasAuthentication;
+use Asciisd\Autochartist\Contracts\AutochartistClientInterface;
+use Asciisd\Autochartist\DTOs\NewsSentiment\ExtremeScoreChangeRequest;
+use Asciisd\Autochartist\DTOs\NewsSentiment\HistoryRequest;
+use Asciisd\Autochartist\DTOs\NewsSentiment\SectorsRequest;
+use Asciisd\Autochartist\DTOs\NewsSentiment\SentimentRequest;
+use Asciisd\Autochartist\DTOs\NewsSentiment\SignificantSentimentRequest;
+use Asciisd\Autochartist\DTOs\NewsSentiment\SourcesRequest;
+use Asciisd\Autochartist\Traits\HasAuthentication;
 
 class NewsSentimentService
 {

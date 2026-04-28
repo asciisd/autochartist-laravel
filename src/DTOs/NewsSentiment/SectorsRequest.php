@@ -1,6 +1,6 @@
 <?php
 
-namespace Mohanad\Autochartist\DTOs\NewsSentiment;
+namespace Asciisd\Autochartist\DTOs\NewsSentiment;
 
 class SectorsRequest
 {

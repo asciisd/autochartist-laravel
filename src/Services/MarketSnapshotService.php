@@ -1,15 +1,15 @@
 <?php
 
-namespace Mohanad\Autochartist\Services;
+namespace Asciisd\Autochartist\Services;
 
-use Mohanad\Autochartist\Contracts\AutochartistClientInterface;
-use Mohanad\Autochartist\DTOs\MarketSnapshot\ChartImageRequest;
-use Mohanad\Autochartist\DTOs\MarketSnapshot\EmailSnapshotRequest;
-use Mohanad\Autochartist\DTOs\MarketSnapshot\PatternDetailRequest;
-use Mohanad\Autochartist\DTOs\MarketSnapshot\SnapshotInstancesRequest;
-use Mohanad\Autochartist\DTOs\MarketSnapshot\SnapshotRequest;
-use Mohanad\Autochartist\DTOs\MarketSnapshot\SnapshotTypesRequest;
-use Mohanad\Autochartist\Traits\HasAuthentication;
+use Asciisd\Autochartist\Contracts\AutochartistClientInterface;
+use Asciisd\Autochartist\DTOs\MarketSnapshot\ChartImageRequest;
+use Asciisd\Autochartist\DTOs\MarketSnapshot\EmailSnapshotRequest;
+use Asciisd\Autochartist\DTOs\MarketSnapshot\PatternDetailRequest;
+use Asciisd\Autochartist\DTOs\MarketSnapshot\SnapshotInstancesRequest;
+use Asciisd\Autochartist\DTOs\MarketSnapshot\SnapshotRequest;
+use Asciisd\Autochartist\DTOs\MarketSnapshot\SnapshotTypesRequest;
+use Asciisd\Autochartist\Traits\HasAuthentication;
 
 /**
  * Market Snapshot Service

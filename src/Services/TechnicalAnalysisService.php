@@ -1,12 +1,12 @@
 <?php
 
-namespace Mohanad\Autochartist\Services;
+namespace Asciisd\Autochartist\Services;
 
-use Mohanad\Autochartist\Contracts\AutochartistClientInterface;
-use Mohanad\Autochartist\DTOs\TechnicalAnalysis\ChartImageRequest;
-use Mohanad\Autochartist\DTOs\TechnicalAnalysis\PatternDetailRequest;
-use Mohanad\Autochartist\DTOs\TechnicalAnalysis\TradeSetupsRequest;
-use Mohanad\Autochartist\Traits\HasAuthentication;
+use Asciisd\Autochartist\Contracts\AutochartistClientInterface;
+use Asciisd\Autochartist\DTOs\TechnicalAnalysis\ChartImageRequest;
+use Asciisd\Autochartist\DTOs\TechnicalAnalysis\PatternDetailRequest;
+use Asciisd\Autochartist\DTOs\TechnicalAnalysis\TradeSetupsRequest;
+use Asciisd\Autochartist\Traits\HasAuthentication;
 
 class TechnicalAnalysisService
 {

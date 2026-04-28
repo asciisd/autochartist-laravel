@@ -1,13 +1,13 @@
 <?php
 
-namespace Mohanad\Autochartist;
+namespace Asciisd\Autochartist;
 
 use Illuminate\Support\ServiceProvider;
-use Mohanad\Autochartist\Contracts\AutochartistClientInterface;
-use Mohanad\Autochartist\Http\AutochartistHttpClient;
-use Mohanad\Autochartist\Services\MarketSnapshotService;
-use Mohanad\Autochartist\Services\NewsSentimentService;
-use Mohanad\Autochartist\Services\TechnicalAnalysisService;
+use Asciisd\Autochartist\Contracts\AutochartistClientInterface;
+use Asciisd\Autochartist\Http\AutochartistHttpClient;
+use Asciisd\Autochartist\Services\MarketSnapshotService;
+use Asciisd\Autochartist\Services\NewsSentimentService;
+use Asciisd\Autochartist\Services\TechnicalAnalysisService;
 
 class AutochartistServiceProvider extends ServiceProvider
 {

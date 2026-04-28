@@ -1,6 +1,6 @@
 <?php
 
-namespace Mohanad\Autochartist\Exceptions;
+namespace Asciisd\Autochartist\Exceptions;
 
 use Exception;
 

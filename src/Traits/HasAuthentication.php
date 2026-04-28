@@ -1,6 +1,6 @@
 <?php
 
-namespace Mohanad\Autochartist\Traits;
+namespace Asciisd\Autochartist\Traits;
 
 trait HasAuthentication
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mohanad\Autochartist\Facades;
+namespace Asciisd\Autochartist\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

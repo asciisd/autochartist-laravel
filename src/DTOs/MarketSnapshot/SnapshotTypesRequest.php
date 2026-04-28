@@ -1,6 +1,6 @@
 <?php
 
-namespace Mohanad\Autochartist\DTOs\MarketSnapshot;
+namespace Asciisd\Autochartist\DTOs\MarketSnapshot;
 
 /**
  * Market Snapshot Types Request DTO

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mohanad\Autochartist\Http;
+namespace Asciisd\Autochartist\Http;
 
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
-use Mohanad\Autochartist\Contracts\AutochartistClientInterface;
-use Mohanad\Autochartist\Exceptions\AutochartistException;
+use Asciisd\Autochartist\Contracts\AutochartistClientInterface;
+use Asciisd\Autochartist\Exceptions\AutochartistException;
 
 class AutochartistHttpClient implements AutochartistClientInterface
 {

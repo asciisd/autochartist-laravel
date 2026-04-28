@@ -32,7 +32,7 @@ The service provider will be automatically registered.
 Publish the configuration file:
 
 ```bash
-php artisan vendor:publish --provider="Mohanad\Autochartist\AutochartistServiceProvider"
+php artisan vendor:publish --provider="Asciisd\Autochartist\AutochartistServiceProvider"
 ```
 
 This will create a `config/autochartist.php` file in your application.
@@ -68,7 +68,7 @@ AUTOCHARTIST_LOCALE=en
 ### Using the Facade
 
 ```php
-use Mohanad\Autochartist\Facades\Autochartist;
+use Asciisd\Autochartist\Facades\Autochartist;
 
 // Market Snapshot
 $snapshots = Autochartist::marketSnapshot()->getSnapshotTypes();
@@ -83,9 +83,9 @@ $sentiment = Autochartist::newsSentiment()->getSentiment();
 ### Dependency Injection
 
 ```php
-use Mohanad\Autochartist\Services\MarketSnapshotService;
-use Mohanad\Autochartist\Services\TechnicalAnalysisService;
-use Mohanad\Autochartist\Services\NewsSentimentService;
+use Asciisd\Autochartist\Services\MarketSnapshotService;
+use Asciisd\Autochartist\Services\TechnicalAnalysisService;
+use Asciisd\Autochartist\Services\NewsSentimentService;
 
 class TradingController extends Controller
 {
@@ -110,8 +110,8 @@ Market snapshots are generated 3 times daily before major trading sessions.
 ### Get Available Snapshot Types
 
 ```php
-use Mohanad\Autochartist\DTOs\MarketSnapshot\SnapshotTypesRequest;
-use Mohanad\Autochartist\Facades\Autochartist;
+use Asciisd\Autochartist\DTOs\MarketSnapshot\SnapshotTypesRequest;
+use Asciisd\Autochartist\Facades\Autochartist;
 
 // Get all available snapshot types
 $types = Autochartist::marketSnapshot()->getSnapshotTypes();
@@ -124,7 +124,7 @@ $types = Autochartist::marketSnapshot()->getSnapshotTypes($request);
 ### Get Snapshot Instances
 
 ```php
-use Mohanad\Autochartist\DTOs\MarketSnapshot\SnapshotInstancesRequest;
+use Asciisd\Autochartist\DTOs\MarketSnapshot\SnapshotInstancesRequest;
 
 $request = new SnapshotInstancesRequest(
     reportId: 'market-snapshot',
@@ -137,7 +137,7 @@ $instances = Autochartist::marketSnapshot()->getSnapshotInstances($request);
 ### Get Specific Snapshot
 
 ```php
-use Mohanad\Autochartist\DTOs\MarketSnapshot\SnapshotRequest;
+use Asciisd\Autochartist\DTOs\MarketSnapshot\SnapshotRequest;
 
 $request = new SnapshotRequest(
     reportId: 'market-snapshot',
@@ -152,7 +152,7 @@ $snapshot = Autochartist::marketSnapshot()->getSnapshot($request);
 ### Get Pattern Details
 
 ```php
-use Mohanad\Autochartist\DTOs\MarketSnapshot\PatternDetailRequest;
+use Asciisd\Autochartist\DTOs\MarketSnapshot\PatternDetailRequest;
 
 $request = new PatternDetailRequest(
     type: 'fibonacci',
@@ -165,7 +165,7 @@ $details = Autochartist::marketSnapshot()->getPatternDetail($request);
 ### Send Email Snapshot
 
 ```php
-use Mohanad\Autochartist\DTOs\MarketSnapshot\EmailSnapshotRequest;
+use Asciisd\Autochartist\DTOs\MarketSnapshot\EmailSnapshotRequest;
 
 $request = new EmailSnapshotRequest(
     reportId: 'market-snapshot',
@@ -179,7 +179,7 @@ $result = Autochartist::marketSnapshot()->emailSnapshot($request);
 ### Get Chart Image URL
 
 ```php
-use Mohanad\Autochartist\DTOs\MarketSnapshot\ChartImageRequest;
+use Asciisd\Autochartist\DTOs\MarketSnapshot\ChartImageRequest;
 
 $request = new ChartImageRequest(
     type: 'chartpattern',
@@ -198,7 +198,7 @@ Access chart patterns, key levels, and Fibonacci retracements.
 ### Get Trade Setups
 
 ```php
-use Mohanad\Autochartist\DTOs\TechnicalAnalysis\TradeSetupsRequest;
+use Asciisd\Autochartist\DTOs\TechnicalAnalysis\TradeSetupsRequest;
 
 $request = new TradeSetupsRequest(
     symbols: ['EURUSD', 'GBPUSD'],
@@ -213,7 +213,7 @@ $setups = Autochartist::technicalAnalysis()->getTradeSetups($request);
 ### Get Pattern Details
 
 ```php
-use Mohanad\Autochartist\DTOs\TechnicalAnalysis\PatternDetailRequest;
+use Asciisd\Autochartist\DTOs\TechnicalAnalysis\PatternDetailRequest;
 
 $request = new PatternDetailRequest(
     type: 'chartpattern',
@@ -237,7 +237,7 @@ $drawingData = Autochartist::technicalAnalysis()->getDrawingData($request);
 ### Get Chart Image URL
 
 ```php
-use Mohanad\Autochartist\DTOs\TechnicalAnalysis\ChartImageRequest;
+use Asciisd\Autochartist\DTOs\TechnicalAnalysis\ChartImageRequest;
 
 $request = new ChartImageRequest(
     type: 'keylevels',
@@ -257,7 +257,7 @@ Analyze market sentiment from news sources.
 ### Get Latest Sentiment
 
 ```php
-use Mohanad\Autochartist\DTOs\NewsSentiment\SentimentRequest;
+use Asciisd\Autochartist\DTOs\NewsSentiment\SentimentRequest;
 
 $request = new SentimentRequest(
     symbols: ['AAPL', 'GOOGL'],
@@ -273,7 +273,7 @@ $sentiment = Autochartist::newsSentiment()->getSentiment($request);
 Get sentiments where the score changed by 30+ points:
 
 ```php
-use Mohanad\Autochartist\DTOs\NewsSentiment\ExtremeScoreChangeRequest;
+use Asciisd\Autochartist\DTOs\NewsSentiment\ExtremeScoreChangeRequest;
 
 $request = new ExtremeScoreChangeRequest(
     symbols: ['EURUSD'],
@@ -288,7 +288,7 @@ $extremeChanges = Autochartist::newsSentiment()->getExtremeScoreChange($request)
 Get sentiments that reached very positive (>60) or very negative (<-60):
 
 ```php
-use Mohanad\Autochartist\DTOs\NewsSentiment\SignificantSentimentRequest;
+use Asciisd\Autochartist\DTOs\NewsSentiment\SignificantSentimentRequest;
 
 $request = new SignificantSentimentRequest(
     symbols: ['BTCUSD'],
@@ -301,7 +301,7 @@ $significant = Autochartist::newsSentiment()->getSignificantSentiment($request);
 ### Get Historical Sentiment
 
 ```php
-use Mohanad\Autochartist\DTOs\NewsSentiment\HistoryRequest;
+use Asciisd\Autochartist\DTOs\NewsSentiment\HistoryRequest;
 
 $request = new HistoryRequest(
     ticker: 'AAPL',
@@ -329,7 +329,7 @@ $sources = Autochartist::newsSentiment()->getSources();
 All API errors throw `AutochartistException`:
 
 ```php
-use Mohanad\Autochartist\Exceptions\AutochartistException;
+use Asciisd\Autochartist\Exceptions\AutochartistException;
 
 try {
     $snapshots = Autochartist::marketSnapshot()->getSnapshotTypes();
@@ -360,4 +360,5 @@ For API documentation and support, visit:
 
 - [Mohanad](https://github.com/mohanad)
 - [All Contributors](../../contributors)
+
 # autochartist-laravel

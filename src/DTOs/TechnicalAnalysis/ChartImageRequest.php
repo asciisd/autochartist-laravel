@@ -1,6 +1,6 @@
 <?php
 
-namespace Mohanad\Autochartist\DTOs\TechnicalAnalysis;
+namespace Asciisd\Autochartist\DTOs\TechnicalAnalysis;
 
 class ChartImageRequest
 {

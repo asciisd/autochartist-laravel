@@ -1,6 +1,6 @@
 <?php
 
-namespace Mohanad\Autochartist\Contracts;
+namespace Asciisd\Autochartist\Contracts;
 
 interface AutochartistClientInterface
 {
