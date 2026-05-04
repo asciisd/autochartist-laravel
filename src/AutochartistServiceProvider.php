@@ -42,10 +42,12 @@ final class AutochartistServiceProvider extends ServiceProvider
 
     /**
      * Register authentication service with configuration.
+     * 
+     * Note: Not using singleton to allow per-request user-specific credentials.
      */
     private function registerAuthenticationService(): void
     {
-        $this->app->singleton(AuthenticationService::class, function () {
+        $this->app->bind(AuthenticationService::class, function () {
             return new AuthenticationService(
                 user: config('autochartist.user'),
                 brokerId: config('autochartist.broker_id'),
@@ -58,20 +60,24 @@ final class AutochartistServiceProvider extends ServiceProvider
 
     /**
      * Register API service classes.
+     * 
+     * Note: Not using singleton to support per-request user-specific authentication.
      */
     private function registerApiServices(): void
     {
-        $this->app->singleton(MarketSnapshotService::class);
-        $this->app->singleton(TechnicalAnalysisService::class);
-        $this->app->singleton(NewsSentimentService::class);
+        $this->app->bind(MarketSnapshotService::class);
+        $this->app->bind(TechnicalAnalysisService::class);
+        $this->app->bind(NewsSentimentService::class);
     }
 
     /**
      * Register the Autochartist manager for facade.
+     * 
+     * Note: Not using singleton to support per-request user-specific authentication.
      */
     private function registerManager(): void
     {
-        $this->app->singleton(AutochartistManager::class);
+        $this->app->bind(AutochartistManager::class);
     }
 
     /**
@@ -84,4 +90,3 @@ final class AutochartistServiceProvider extends ServiceProvider
         ], 'autochartist-config');
     }
 }
-
