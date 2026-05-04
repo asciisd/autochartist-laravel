@@ -36,6 +36,7 @@ return [
     'secret_key' => env('AUTOCHARTIST_SECRET_KEY'), // Secret key for token generation (DO NOT SHARE)
 
     'token' => env('AUTOCHARTIST_TOKEN'), // Optional pre-generated token (if not using secret key)
+    
 
     /*
     |--------------------------------------------------------------------------
