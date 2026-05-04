@@ -1,27 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asciisd\Autochartist\DTOs\NewsSentiment;
 
-class HistoryRequest
+use Asciisd\Autochartist\DTOs\BaseDTO;
+
+/**
+ * History Request DTO
+ *
+ * Fetches historical sentiment data for a specific ticker.
+ */
+readonly class HistoryRequest extends BaseDTO
 {
     public function __construct(
-        public readonly string $ticker,
-        public readonly ?string $daysBack = null,
-        public readonly ?string $expire = null,
+        public string $ticker,
+        public ?string $daysBack = null,
     ) {}
 
     public function toArray(): array
     {
-        return array_filter([
-            'ticker' => $this->ticker,
-            'days_back' => $this->daysBack,
-            'expire' => $this->expire,
-        ], fn ($value) => $value !== null);
+        return $this->toSnakeCaseArray();
     }
 
-    /**
-     * Get the endpoint path for this request.
-     */
     public function getPath(): string
     {
         return '/newssentiment/history';

@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asciisd\Autochartist\DTOs\MarketSnapshot;
+
+use Asciisd\Autochartist\DTOs\BaseDTO;
 
 /**
  * Market Snapshot Chart Image Request
  *
  * Retrieves chart image for a specific symbol_report_id from snapshot
  */
-readonly class ChartImageRequest
+readonly class ChartImageRequest extends BaseDTO
 {
     public function __construct(
         public int $reportId,
@@ -18,25 +22,32 @@ readonly class ChartImageRequest
         public ?int $height = 300,
         public ?string $locale = null,
         public ?bool $small = null,
-        public ?string $expire = null,
     ) {}
 
     public function toArray(): array
     {
-        return array_filter([
-            'report_id' => $this->reportId,
-            'reportuid' => $this->reportUid,
-            'symbol_report_id' => $this->symbolReportId,
-            'w' => $this->width,
-            'h' => $this->height,
-            'small' => $this->small,
-            'expire' => $this->expire,
-        ], fn ($value) => $value !== null);
+        $data = $this->toSnakeCaseArray();
+        
+        // Custom mappings for API
+        if (isset($data['width'])) {
+            $data['w'] = $data['width'];
+            unset($data['width']);
+        }
+        if (isset($data['height'])) {
+            $data['h'] = $data['height'];
+            unset($data['height']);
+        }
+        if (isset($data['report_uid'])) {
+            $data['reportuid'] = $data['report_uid'];
+            unset($data['report_uid']);
+        }
+        
+        // Remove fields used in path
+        unset($data['image_format']);
+        
+        return $data;
     }
 
-    /**
-     * Get the endpoint path for this request.
-     */
     public function getPath(): string
     {
         return "/mr/api/reports/{$this->reportUid}/{$this->symbolReportId}.{$this->imageFormat}";

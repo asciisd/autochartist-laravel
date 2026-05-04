@@ -1,31 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asciisd\Autochartist\DTOs\TechnicalAnalysis;
 
-class ChartImageRequest
+use Asciisd\Autochartist\DTOs\BaseDTO;
+
+/**
+ * Chart Image Request DTO
+ *
+ * Generates chart image URL for a specific technical pattern.
+ */
+readonly class ChartImageRequest extends BaseDTO
 {
     public function __construct(
-        public readonly string $type,
-        public readonly string $uid,
-        public readonly ?int $width = 320,
-        public readonly ?int $height = 240,
-        public readonly ?string $locale = null,
-        public readonly ?string $expire = null,
+        public string $type,
+        public string $uid,
+        public ?int $width = 320,
+        public ?int $height = 240,
+        public ?string $locale = null,
     ) {}
 
     public function toArray(): array
     {
-        return array_filter([
-            'width' => $this->width,
-            'height' => $this->height,
-            'locale' => $this->locale,
-            'expire' => $this->expire,
-        ], fn ($value) => $value !== null);
+        // Exclude type and uid as they're used in the path, not query params
+        $data = $this->toSnakeCaseArray();
+        unset($data['type'], $data['uid']);
+        
+        return $data;
     }
 
-    /**
-     * Get the chart image path.
-     */
     public function getPath(): string
     {
         return "/to/resources/charts/{$this->type}_{$this->uid}.png";

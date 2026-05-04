@@ -7,11 +7,11 @@ namespace Asciisd\Autochartist\DTOs\TechnicalAnalysis;
 use Asciisd\Autochartist\DTOs\BaseDTO;
 
 /**
- * Pattern Detail Request DTO
+ * Drawing Data Request DTO
  *
- * Fetches detailed information for a specific technical pattern.
+ * Fetches drawing data for a specific pattern.
  */
-readonly class PatternDetailRequest extends BaseDTO
+readonly class DrawingDataRequest extends BaseDTO
 {
     public function __construct(
         public string $type,
@@ -25,6 +25,6 @@ readonly class PatternDetailRequest extends BaseDTO
 
     public function getPath(): string
     {
-        return "/to/resources/results/detail/{$this->type}/{$this->uid}";
+        return "/to/resources/results/detail/drawing-data/{$this->type}/{$this->uid}";
     }
 }

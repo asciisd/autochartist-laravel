@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asciisd\Autochartist\Services;
 
-use Asciisd\Autochartist\Contracts\AutochartistClientInterface;
 use Asciisd\Autochartist\DTOs\MarketSnapshot\ChartImageRequest;
 use Asciisd\Autochartist\DTOs\MarketSnapshot\EmailSnapshotRequest;
 use Asciisd\Autochartist\DTOs\MarketSnapshot\PatternDetailRequest;
 use Asciisd\Autochartist\DTOs\MarketSnapshot\SnapshotInstancesRequest;
 use Asciisd\Autochartist\DTOs\MarketSnapshot\SnapshotRequest;
 use Asciisd\Autochartist\DTOs\MarketSnapshot\SnapshotTypesRequest;
-use Asciisd\Autochartist\Traits\HasAuthentication;
 
 /**
  * Market Snapshot Service
@@ -19,151 +19,68 @@ use Asciisd\Autochartist\Traits\HasAuthentication;
  * - London Session (EU)
  * - New York Session (US)
  */
-class MarketSnapshotService
+final class MarketSnapshotService extends BaseService
 {
-    use HasAuthentication;
-
     private const ENDPOINT_SNAPSHOT_TYPES = '/mr/api/reports/types';
-
     private const ENDPOINT_SNAPSHOT_INSTANCES = '/mr/api/reports/';
-
-    public function __construct(
-        private readonly AutochartistClientInterface $client
-    ) {}
 
     /**
      * Get available snapshot types (report types).
-     *
-     * Returns list of available reports with:
-     * - report_id: ID to use in subsequent calls
-     * - name: Report name
-     * - last_updated: Last update timestamp
      */
     public function getSnapshotTypes(SnapshotTypesRequest $request): array
     {
-        $query = array_merge(
-            $this->getDefaultParams(request('expire')),
-            $request->toArray()
-        );
+        $query = $this->buildQuery($request);
 
-        return $this->client->get(self::ENDPOINT_SNAPSHOT_TYPES, $query);
+        return $this->get(self::ENDPOINT_SNAPSHOT_TYPES, $query);
     }
 
     /**
      * Get available snapshot instances.
-     *
-     * Returns list of available report instances with:
-     * - report_id: Report type ID
-     * - report_uid: Unique instance identifier
-     * - generated: Generation timestamp
-     * - session: Trading session (US/EU/AS)
      */
     public function getSnapshotInstances(SnapshotInstancesRequest $request): array
     {
-        $query = array_merge(
-            $this->getDefaultParams($request->expire),
-            $request->toArray()
-        );
+        $query = $this->buildQuery($request);
 
-        // dd(self::ENDPOINT_SNAPSHOT_INSTANCES, $query);
-
-        return $this->client->get(self::ENDPOINT_SNAPSHOT_INSTANCES, $query);
+        return $this->get(self::ENDPOINT_SNAPSHOT_INSTANCES, $query);
     }
 
     /**
      * Get a specific market snapshot.
-     *
-     * Returns snapshot with:
-     * - report_id, report_uid, generated, session
-     * - messages: Market snapshot description, dates, etc.
-     * - symbol_reports: Trading opportunities with levels, analysis, etc.
-     *
-     * @param  SnapshotRequest  $request  Request with reportId, reportUid (or 'latest'), include options, locale
      */
     public function getSnapshot(SnapshotRequest $request): array
     {
-        $query = array_merge(
-            $this->getDefaultParams($request->expire),
-            $request->toArray()
-        );
-
-        // Handle multiple 'include' parameters
-        if (isset($query['include']) && is_array($query['include'])) {
-            $includes = $query['include'];
-            unset($query['include']);
-
-            // Build query string with multiple include parameters
-            $queryString = http_build_query($query);
-            foreach ($includes as $include) {
-                $queryString .= '&include='.$include;
-            }
-
-            // Make request with custom query string
-            $endpoint = $request->getPath().'?'.$queryString;
-
-            return $this->client->get($endpoint, []);
-        }
-
-        return $this->client->get($request->getPath(), $query);
+        $query = $this->buildQuery($request);
+        
+        return $this->get($request->getPath(), $query);
     }
 
     /**
      * Get chart image URL for a specific symbol report from snapshot.
-     *
-     * @param  ChartImageRequest  $request  Request with reportUid, symbolReportId, imageFormat, dimensions
-     * @return string Chart image URL
      */
     public function getChartImageUrl(ChartImageRequest $request): string
     {
-        $query = array_merge(
-            $this->getDefaultParams($request->expire),
-            $request->toArray()
-        );
+        $query = $this->buildQuery($request);
 
-        $baseUrl = config('autochartist.base_url');
-        $queryString = http_build_query($query);
-
-        // dd($baseUrl.$request->getPath().'?'.$queryString, $query);
-
-        return $baseUrl.$request->getPath().'?'.$queryString;
+        return $this->buildUrl($request->getPath(), $query);
     }
 
     /**
      * Get detailed pattern information for a specific symbol report.
-     *
-     * Returns pattern details including:
-     * - Pattern type and identification time
-     * - Chart data points
-     * - Support/resistance levels
-     * - Technical indicators
-     *
-     * @param  PatternDetailRequest  $request  Request with reportId, reportUid, symbolReportId, locale
      */
     public function getPatternDetail(PatternDetailRequest $request): array
     {
-        $query = array_merge(
-            $this->getDefaultParams($request->expire),
-            $request->toArray()
-        );
+        $query = $this->buildQuery($request);
 
-        return $this->client->get($request->getPath(), $query);
+        return $this->get($request->getPath(), $query);
     }
 
     /**
      * Get HTML-rendered snapshot for email.
-     *
-     * Returns complete HTML email template with embedded images and styling.
-     *
-     * @param  EmailSnapshotRequest  $request  Request with reportId, reportUid (or 'latest'), locale
-     * @return array HTML content and metadata
      */
     public function getEmailSnapshot(EmailSnapshotRequest $request): array
     {
-        $query = array_merge(
-            $this->getDefaultParams($request->expire),
-            $request->toArray()
-        );
-        
-        return $this->client->get($request->getPath(), $query);
+        $query = $this->buildQuery($request);
+
+        return $this->get($request->getPath(), $query);
     }
 }

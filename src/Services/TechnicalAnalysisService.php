@@ -1,36 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asciisd\Autochartist\Services;
 
-use Asciisd\Autochartist\Contracts\AutochartistClientInterface;
 use Asciisd\Autochartist\DTOs\TechnicalAnalysis\ChartImageRequest;
+use Asciisd\Autochartist\DTOs\TechnicalAnalysis\DrawingDataRequest;
 use Asciisd\Autochartist\DTOs\TechnicalAnalysis\PatternDetailRequest;
 use Asciisd\Autochartist\DTOs\TechnicalAnalysis\TradeSetupsRequest;
-use Asciisd\Autochartist\Traits\HasAuthentication;
 
-class TechnicalAnalysisService
+/**
+ * Technical Analysis Service
+ *
+ * Provides real-time technical analysis including:
+ * - Chart patterns (triangles, channels, head & shoulders)
+ * - Fibonacci retracements
+ * - Key levels (support/resistance)
+ */
+final class TechnicalAnalysisService extends BaseService
 {
-    use HasAuthentication;
-
     private const ENDPOINT_TRADE_SETUPS = '/to/resources/results';
-
-    public function __construct(
-        private readonly AutochartistClientInterface $client
-    ) {}
 
     /**
      * Get technical trade setups (chart patterns, key levels, fibonacci).
      */
     public function getTradeSetups(?TradeSetupsRequest $request = null): array
     {
-        $request = $request ?? new TradeSetupsRequest;
+        $request = $request ?? new TradeSetupsRequest();
+        $query = $this->buildQuery($request);
 
-        $query = array_merge(
-            $this->getDefaultParams($request->expire),
-            $request->toArray()
-        );
-
-        return $this->client->get(self::ENDPOINT_TRADE_SETUPS, $query);
+        return $this->get(self::ENDPOINT_TRADE_SETUPS, $query);
     }
 
     /**
@@ -38,29 +37,19 @@ class TechnicalAnalysisService
      */
     public function getPatternDetail(PatternDetailRequest $request): array
     {
-        $query = array_merge(
-            $this->getDefaultParams($request->expire),
-            $request->toArray()
-        );
+        $query = $this->buildQuery($request);
 
-        $baseUrl = config('autochartist.base_url');
-        $fullUrl = $baseUrl.$request->getPath().'?'.http_build_query($query);
-
-        logger('Autochartist Pattern Detail API Call', ['url' => $fullUrl]);
-
-        return $this->client->get($request->getPath(), $query);
+        return $this->get($request->getPath(), $query);
     }
 
     /**
      * Get drawing data for a specific pattern.
      */
-    public function getDrawingData(PatternDetailRequest $request): array
+    public function getDrawingData(DrawingDataRequest $request): array
     {
-        $query = $this->getDefaultParams($request->expire);
+        $query = $this->buildQuery($request);
 
-        $path = "/to/resources/results/detail/drawing-data/{$request->type}/{$request->uid}";
-
-        return $this->client->get($path, $query);
+        return $this->get($request->getPath(), $query);
     }
 
     /**
@@ -68,15 +57,8 @@ class TechnicalAnalysisService
      */
     public function getChartImageUrl(ChartImageRequest $request): string
     {
-        $query = array_merge(
-            $this->getDefaultParams($request->expire),
-            $request->toArray()
-        );
+        $query = $this->buildQuery($request);
 
-        $baseUrl = config('autochartist.base_url');
-        $queryString = http_build_query($query);
-        $fullUrl = $baseUrl.$request->getPath().'?'.$queryString;
-
-        return $fullUrl;
+        return $this->buildUrl($request->getPath(), $query);
     }
 }

@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asciisd\Autochartist\DTOs\MarketSnapshot;
+
+use Asciisd\Autochartist\DTOs\BaseDTO;
 
 /**
  * Market Snapshot Request DTO
@@ -8,7 +12,7 @@ namespace Asciisd\Autochartist\DTOs\MarketSnapshot;
  * Fetches a specific market snapshot with trading opportunities
  * Generated 3x daily before Tokyo, London, and New York sessions
  */
-readonly class SnapshotRequest
+readonly class SnapshotRequest extends BaseDTO
 {
     public function __construct(
         public int $reportId,
@@ -19,28 +23,19 @@ readonly class SnapshotRequest
 
     public function toArray(): array
     {
-        $params = array_filter([
-            'report_id' => $this->reportId,
-            'reportuid' => $this->reportUid,
-            'locale' => $this->locale,
-        ], fn ($value) => $value !== null);
-
-        // Handle include parameter (can be multiple)
-        if ($this->include && count($this->include) > 0) {
-            // The API accepts multiple 'include' parameters
-            // We'll handle this specially in the service
-            $params['include'] = $this->include;
+        $data = $this->toSnakeCaseArray();
+        
+        // reportuid needs to be lowercase without underscore
+        if (isset($data['report_uid'])) {
+            $data['reportuid'] = $data['report_uid'];
+            unset($data['report_uid']);
         }
-
-        return $params;
+        
+        return $data;
     }
 
-    /**
-     * Get the endpoint path for this request.
-     */
     public function getPath(): string
     {
-        // If reportUid is 'latest', use simpler path
         if ($this->reportUid === 'latest') {
             return "/mr/api/reports/{$this->reportId}/latest";
         }

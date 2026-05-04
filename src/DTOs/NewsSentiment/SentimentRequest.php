@@ -1,33 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asciisd\Autochartist\DTOs\NewsSentiment;
 
-class SentimentRequest
+use Asciisd\Autochartist\DTOs\BaseDTO;
+
+/**
+ * Sentiment Request DTO
+ *
+ * Fetches latest sentiment data for tickers.
+ */
+readonly class SentimentRequest extends BaseDTO
 {
     public function __construct(
-        public readonly ?string $search = null,
-        public readonly ?string $sector = null,
-        public readonly ?string $sentiment = null,
-        public readonly ?bool $strongSentiment = null,
-        public readonly ?bool $includeDetail = null,
-        public readonly ?string $expire = null,
+        public ?string $search = null,
+        public ?string $sector = null,
+        public ?string $sentiment = null,
+        public ?bool $strongSentiment = null,
+        public ?bool $includeDetail = null,
     ) {}
 
     public function toArray(): array
     {
-        return array_filter([
-            'search' => $this->search,
-            'sector' => $this->sector,
-            'sentiment' => $this->sentiment,
-            'strong_sentiment' => $this->strongSentiment,
-            'include_detail' => $this->includeDetail,
-            'expire' => $this->expire,
-        ], fn ($value) => $value !== null);
+        return $this->toSnakeCaseArray();
     }
 
-    /**
-     * Get the endpoint path for this request.
-     */
     public function getPath(): string
     {
         return '/newssentiment/sentiment';

@@ -1,23 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asciisd\Autochartist\DTOs\NewsSentiment;
 
-class SourcesRequest
-{
-    public function __construct(
-        public readonly ?string $expire = null,
-    ) {}
+use Asciisd\Autochartist\DTOs\BaseDTO;
 
+/**
+ * Sources Request DTO
+ *
+ * Fetches available news sources.
+ */
+readonly class SourcesRequest extends BaseDTO
+{
     public function toArray(): array
     {
-        return array_filter([
-            'expire' => $this->expire,
-        ], fn ($value) => $value !== null);
+        return [];
     }
 
-    /**
-     * Get the endpoint path for this request.
-     */
     public function getPath(): string
     {
         return '/newssentiment/sources';

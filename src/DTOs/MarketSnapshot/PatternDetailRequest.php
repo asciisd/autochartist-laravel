@@ -1,33 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asciisd\Autochartist\DTOs\MarketSnapshot;
+
+use Asciisd\Autochartist\DTOs\BaseDTO;
 
 /**
  * Market Snapshot Pattern Detail Request
  *
  * Retrieves detailed information about a specific pattern from snapshot
  */
-readonly class PatternDetailRequest
+readonly class PatternDetailRequest extends BaseDTO
 {
     public function __construct(
         public int $reportId,
         public string $reportUid,
         public string $symbolReportId,
-        public ?string $expire = null,
     ) {}
 
     public function toArray(): array
     {
-        return array_filter([
-            'report_id' => $this->reportId,
-            'reportuid' => $this->reportUid,
-            'symbol_report_id' => $this->symbolReportId,
-        ], fn ($value) => $value !== null);
+        $data = $this->toSnakeCaseArray();
+        // reportuid needs to be lowercase without underscore
+        if (isset($data['report_uid'])) {
+            $data['reportuid'] = $data['report_uid'];
+            unset($data['report_uid']);
+        }
+        return $data;
     }
 
-    /**
-     * Get the endpoint path for this request.
-     */
     public function getPath(): string
     {
         return "/mr/api/reports/{$this->reportUid}/{$this->symbolReportId}/pattern_detail";

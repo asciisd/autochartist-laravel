@@ -1,25 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asciisd\Autochartist\DTOs\NewsSentiment;
 
-class SignificantSentimentRequest
+use Asciisd\Autochartist\DTOs\BaseDTO;
+
+/**
+ * Significant Sentiment Request DTO
+ *
+ * Fetches significant sentiments (very positive or very negative).
+ */
+readonly class SignificantSentimentRequest extends BaseDTO
 {
     public function __construct(
-        public readonly string $dateInput,
-        public readonly ?string $expire = null,
+        public string $dateInput,
     ) {}
 
     public function toArray(): array
     {
-        return array_filter([
-            'date_input' => $this->dateInput,
-            'expire' => $this->expire,
-        ], fn ($value) => $value !== null);
+        return $this->toSnakeCaseArray();
     }
 
-    /**
-     * Get the endpoint path for this request.
-     */
     public function getPath(): string
     {
         return '/newssentiment/significant_sentiment';
