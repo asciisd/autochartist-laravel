@@ -48,7 +48,7 @@ final class AuthenticationService
         if(!empty(config('autochartist.secret_key'))) {
             return md5("{$this->user}|{$this->accountType}|{$this->expiry}|{$this->secretKey}");
         }else{
-            return '75bfa7182d910ca63225937eb332be98';
+            return config('autochartist.token');
         }
     }
 }
