@@ -1,24 +1,56 @@
 {
-    "name": "asciisd/autochartist",
-    "description": "Autochartist Laravel SDK",
-    "type": "library",
-    "require": {
-        "php": "^8.2",
-        "illuminate/support": "^12.0|^13.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Asciisd\\Autochartist\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-        "providers": [
-            "Asciisd\\Autochartist\\AutochartistServiceProvider"
-        ],
-        "aliases": {
-            "Autochartist": "Asciisd\\Autochartist\\Facades\\Autochartist"
-        }
+  "name": "asciisd/autochartist",
+  "description": "Autochartist Laravel SDK - Integrate market snapshots, technical analysis, and news sentiment",
+  "keywords": [
+    "laravel",
+    "autochartist",
+    "trading",
+    "forex",
+    "technical-analysis",
+    "market-data"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "version": "1.0.1",
+  "authors": [
+    {
+      "name": "ASCIISD",
+      "email": "support@asciisd.com"
     }
+  ],
+  "require": {
+    "php": "^8.2",
+    "illuminate/support": "^12.0|^13.0",
+    "illuminate/http": "^12.0|^13.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^9.0",
+    "phpunit/phpunit": "^11.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Asciisd\\Autochartist\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Asciisd\\Autochartist\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "test:coverage": "vendor/bin/phpunit --coverage-html coverage"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Asciisd\\Autochartist\\AutochartistServiceProvider"
+      ],
+      "aliases": {
+        "Autochartist": "Asciisd\\Autochartist\\Facades\\Autochartist"
+      }
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }
