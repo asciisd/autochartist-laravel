@@ -603,10 +603,33 @@ try {
 
 ## Testing
 
-Run the test suite:
+This package comes with comprehensive test coverage including 39 tests with 72 assertions covering all services and features.
+
+### Running Tests
+
+Run all tests:
 
 ```bash
 composer test
+```
+
+Run specific test suite:
+
+```bash
+vendor/bin/phpunit --testsuite Unit
+vendor/bin/phpunit --testsuite Feature
+```
+
+Run specific test file:
+
+```bash
+vendor/bin/phpunit tests/Unit/AuthenticationServiceTest.php
+```
+
+Run specific test method:
+
+```bash
+vendor/bin/phpunit --filter test_authentication_service_generates_token
 ```
 
 Run tests with coverage:
@@ -614,6 +637,83 @@ Run tests with coverage:
 ```bash
 composer test:coverage
 ```
+
+The coverage report will be generated in the `coverage/` directory.
+
+### Test Coverage
+
+The test suite covers:
+
+**Unit Tests (24 tests):**
+
+- ✅ Authentication token generation and validation (4 tests)
+- ✅ Manager service instantiation (4 tests)
+- ✅ Market Snapshot API methods (6 tests)
+- ✅ Technical Analysis API methods (5 tests)
+- ✅ News Sentiment API methods (7 tests)
+
+**Feature Tests (15 tests):**
+
+- ✅ Laravel Facade integration (3 tests)
+- ✅ Service Provider registration (4 tests)
+- ✅ Error handling and exceptions (3 tests)
+- ✅ End-to-end workflow integration (3 tests)
+
+### Test Structure
+
+```
+tests/
+├── TestCase.php              # Base test case with Orchestra Testbench
+├── Unit/                     # Unit tests (24 tests)
+│   ├── AuthenticationServiceTest.php
+│   ├── AutochartistManagerTest.php
+│   └── Services/
+│       ├── MarketSnapshotServiceTest.php
+│       ├── TechnicalAnalysisServiceTest.php
+│       └── NewsSentimentServiceTest.php
+└── Feature/                  # Integration tests (15 tests)
+    ├── AutochartistFacadeTest.php
+    ├── ServiceProviderTest.php
+    ├── ErrorHandlingTest.php
+    └── IntegrationTest.php
+```
+
+### Writing Tests
+
+All tests use HTTP mocking to avoid requiring real API credentials:
+
+```php
+use Illuminate\Support\Facades\Http;
+use Asciisd\Autochartist\Tests\TestCase;
+
+class MyTest extends TestCase
+{
+    public function test_example(): void
+    {
+        // Mock HTTP response
+        Http::fake([
+            '*' => Http::response(['data' => 'test'], 200),
+        ]);
+
+        // Test your code
+        $result = Autochartist::marketSnapshot()->getSnapshotTypes();
+
+        $this->assertArrayHasKey('data', $result);
+    }
+}
+```
+
+### CI/CD Integration
+
+The package includes a GitHub Actions workflow (`.github/workflows/tests.yml`) that runs tests on:
+
+- PHP 8.2 and 8.3
+- Laravel 12 and 13
+- Multiple dependency versions (lowest, stable)
+
+Tests run automatically on push to `main` and `develop` branches and on all pull requests.
+
+For more detailed testing documentation, see [tests/README.md](tests/README.md).
 
 ## Changelog
 

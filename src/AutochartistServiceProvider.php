@@ -78,6 +78,7 @@ final class AutochartistServiceProvider extends ServiceProvider
     private function registerManager(): void
     {
         $this->app->bind(AutochartistManager::class);
+        $this->app->alias(AutochartistManager::class, 'autochartist');
     }
 
     /**
