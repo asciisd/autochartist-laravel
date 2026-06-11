@@ -1,22 +1,16 @@
 <?php
 
-declare(strict_types=1);
+namespace Asciisd\AutochartistLaravel\Facades;
 
-namespace Asciisd\Autochartist\Facades;
-
-use Asciisd\Autochartist\AutochartistManager;
+use Asciisd\AutochartistLaravel\Services\AutochartistManager;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * Autochartist Facade
+ * @method static \Asciisd\AutochartistLaravel\Services\TechnicalAnalysis technicalAnalysis()
  *
- * @method static \Asciisd\Autochartist\Services\MarketSnapshotService marketSnapshot()
- * @method static \Asciisd\Autochartist\Services\TechnicalAnalysisService technicalAnalysis()
- * @method static \Asciisd\Autochartist\Services\NewsSentimentService newsSentiment()
- *
- * @see \Asciisd\Autochartist\AutochartistManager
+ * @see \Asciisd\AutochartistLaravel\Services\AutochartistManager
  */
-final class Autochartist extends Facade
+class Autochartist extends Facade
 {
     protected static function getFacadeAccessor(): string
     {

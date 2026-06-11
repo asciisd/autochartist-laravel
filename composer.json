@@ -1,56 +1,51 @@
 {
-  "name": "asciisd/autochartist",
-  "description": "Autochartist Laravel SDK - Integrate market snapshots, technical analysis, and news sentiment",
-  "keywords": [
-    "laravel",
-    "autochartist",
-    "trading",
-    "forex",
-    "technical-analysis",
-    "market-data"
-  ],
-  "type": "library",
-  "license": "MIT",
-  "version": "1.0.1",
-  "authors": [
-    {
-      "name": "ASCIISD",
-      "email": "support@asciisd.com"
-    }
-  ],
-  "require": {
-    "php": "^8.2",
-    "illuminate/support": "^11.0|^12.0|^13.0",
-    "illuminate/http": "^11.0|^12.0|^13.0"
-  },
-  "require-dev": {
-    "orchestra/testbench": "^9.0|^10.0|^11.0",
-    "phpunit/phpunit": "^11.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Asciisd\\Autochartist\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Asciisd\\Autochartist\\Tests\\": "tests/"
-    }
-  },
-  "scripts": {
-    "test": "vendor/bin/phpunit",
-    "test:coverage": "vendor/bin/phpunit --coverage-html coverage"
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Asciisd\\Autochartist\\AutochartistServiceProvider"
-      ],
-      "aliases": {
-        "Autochartist": "Asciisd\\Autochartist\\Facades\\Autochartist"
-      }
-    }
-  },
-  "minimum-stability": "stable",
-  "prefer-stable": true
+    "name": "asciisd/autochartist-laravel",
+    "description": "Autochartist API integration with Laravel",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "autochartist",
+        "trading",
+        "technical-analysis"
+    ],
+    "authors": [
+        {
+            "name": "Mohamed Elogail",
+            "email": "moh.elogail@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+        "illuminate/http": "^10.0|^11.0|^12.0|^13.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0|^9.0|^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Asciisd\\AutochartistLaravel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Asciisd\\AutochartistLaravel\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Asciisd\\AutochartistLaravel\\Providers\\AutochartistServiceProvider"
+            ],
+            "aliases": {
+                "Autochartist": "Asciisd\\AutochartistLaravel\\Facades\\Autochartist"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
