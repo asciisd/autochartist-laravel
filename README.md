@@ -1,5 +1,9 @@
 # Autochartist for Laravel
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/asciisd/autochartist-laravel.svg)](https://packagist.org/packages/asciisd/autochartist-laravel)
+[![Total Downloads](https://img.shields.io/packagist/dt/asciisd/autochartist-laravel.svg)](https://packagist.org/packages/asciisd/autochartist-laravel)
+[![License](https://img.shields.io/packagist/l/asciisd/autochartist-laravel.svg)](https://packagist.org/packages/asciisd/autochartist-laravel)
+
 A lightweight Laravel integration for the [Autochartist](https://www.autochartist.com/) API. It handles request authentication for you and exposes a simple, fluent way to fetch technical analysis data.
 
 ## Requirements
@@ -10,25 +14,6 @@ A lightweight Laravel integration for the [Autochartist](https://www.autochartis
 ## Installation
 
 Install the package via Composer:
-
-```bash
-composer require asciisd/autochartist-laravel
-```
-
-If the package is not available on Packagist yet, add the GitHub repository to your application's `composer.json` first:
-
-```json
-{
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/asciisd/autochartist-laravel"
-        }
-    ]
-}
-```
-
-Then run:
 
 ```bash
 composer require asciisd/autochartist-laravel
