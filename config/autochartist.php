@@ -48,4 +48,15 @@ return [
     */
     'token_ttl' => (int) env('AUTOCHARTIST_TOKEN_TTL', 3 * 24 * 60 * 60),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Styles
+    |--------------------------------------------------------------------------
+    |
+    | The styles to use for light and dark mode. Default is "light".
+    | Available options are: "light", "dark".
+    |
+    */
+    'style' => env('AUTOCHARTIST_STYLE', 'light'),
+
 ];

@@ -21,6 +21,10 @@ class AutochartistClient
      */
     public function get(string $path, array $query = []): array
     {
+        if (config('autochartist.style') === 'dark') {
+            $query['style'] = 'ds';
+        }
+
         $response = Http::get(
             $this->buildUrl($path),
             array_merge($query, $this->authenticator->credentials())
