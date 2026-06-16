@@ -2,7 +2,7 @@
 
 namespace Asciisd\AutochartistLaravel\Services;
 
-class MarketAlerts extends AbstractService
+class MarketAlertsService extends AbstractService
 {
 
     /**

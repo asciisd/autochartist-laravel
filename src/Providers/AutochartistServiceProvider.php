@@ -4,7 +4,7 @@ namespace Asciisd\AutochartistLaravel\Providers;
 
 use Asciisd\AutochartistLaravel\Services\AutochartistAuthenticator;
 use Asciisd\AutochartistLaravel\Services\AutochartistClient;
-use Asciisd\AutochartistLaravel\Services\AutochartistManager;
+use Asciisd\AutochartistLaravel\AutochartistManager;
 use Illuminate\Support\ServiceProvider;
 
 class AutochartistServiceProvider extends ServiceProvider

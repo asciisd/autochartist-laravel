@@ -2,13 +2,14 @@
 
 namespace Asciisd\AutochartistLaravel\Facades;
 
-use Asciisd\AutochartistLaravel\Services\AutochartistManager;
+use Asciisd\AutochartistLaravel\AutochartistManager;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Asciisd\AutochartistLaravel\Services\TechnicalAnalysis technicalAnalysis()
- *
- * @see \Asciisd\AutochartistLaravel\Services\AutochartistManager
+ * @method static \Asciisd\AutochartistLaravel\Services\TechnicalAnalysisService technicalAnalysis()
+ * @method static \Asciisd\AutochartistLaravel\Services\MarketAlertsService marketAlerts()
+ * @method static \Asciisd\AutochartistLaravel\Services\NewsSentimentService newsSentiment()
+ * @see \Asciisd\AutochartistLaravel\AutochartistManager
  */
 class Autochartist extends Facade
 {
