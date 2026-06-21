@@ -75,13 +75,16 @@ class NewsSentimentService extends AbstractService
         ];
     }
 
-    public function getHistory(array $query = []): array
+    public function getHistory(string $ticker ,array $query = []): array
     {
+        if (empty($ticker)) {
+            throw new \InvalidArgumentException('Ticker is required');
+        }
 
         // Default values, only applied when the user did not supply them.
         $query = array_merge([
             'days_back' => 5,
-            'ticker' => 'AAPL',
+            'ticker' => $ticker,
         ], $query);
 
         return $this->client->get("newssentiment/history", $query);
