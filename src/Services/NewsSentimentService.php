@@ -48,12 +48,12 @@ class NewsSentimentService extends AbstractService
      */
     public function getExtremeScoreChange(array $query = []): array
     {
-        if (!empty($query['date_input'])) {
+        if (empty($query['date_input'])) {
             $query['date_input'] = date('Y-m-d');
         }
 
         return [
-            'data' => $this->client->get("newssentiment/extremescorechange", $query),
+            'data' => $this->client->get("newssentiment/extreme_score_change", $query),
         ];
     }
 
@@ -66,7 +66,7 @@ class NewsSentimentService extends AbstractService
     public function getSignificantSentiment(array $query = []): array
     {
         
-        if (!empty($query['date_input'])) {
+        if (empty($query['date_input'])) {
             $query['date_input'] = date('Y-m-d');
         }
 
