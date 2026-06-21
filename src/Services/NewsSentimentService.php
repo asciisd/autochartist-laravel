@@ -14,7 +14,7 @@ class NewsSentimentService extends AbstractService
      * @param array<string, mixed> $query
      * @return array<mixed>
      */
-    public function getSentiment(array $query = [])
+    public function getSentiment(array $query = []): array
     {
 
         // Default values, only applied when the user did not supply them.
@@ -48,7 +48,7 @@ class NewsSentimentService extends AbstractService
      * @param array<string, mixed> $query
      * @return array<mixed>
      */
-    public function getExtremeScoreChange(array $query = [])
+    public function getExtremeScoreChange(array $query = []): array
     {
         if (!empty($query['date_input'])) {
             $query['date_input'] = now()->format('Y-m-d');
@@ -68,7 +68,7 @@ class NewsSentimentService extends AbstractService
      * @param array<string, mixed> $query
      * @return array<mixed>
      */
-    public function getSignificantSentiment(array $query = [])
+    public function getSignificantSentiment(array $query = []): array
     {
         
         if (!empty($query['date_input'])) {
@@ -83,7 +83,7 @@ class NewsSentimentService extends AbstractService
         );
     }
 
-    public function getHistory(array $query = [])
+    public function getHistory(array $query = []): array
     {
 
         // Default values, only applied when the user did not supply them.
@@ -92,32 +92,17 @@ class NewsSentimentService extends AbstractService
             'ticker' => 'AAPL',
         ], $query);
 
-        return response()->json(
-            [
-                'data' => $this->client->get("newssentiment/history", $query),
-            ],
-            200
-        );
+        return $this->client->get("newssentiment/history", $query);
     }
 
-    public function getSectors()
+    public function getSectors(): array
     {
-        return response()->json(
-            [
-                'data' => $this->client->get("newssentiment/sectors"),
-            ],
-            200
-        );
+        return $this->client->get("newssentiment/sectors");
     }
 
-    public function getSources()
+    public function getSources(): array
     {
-        return response()->json(
-            [
-                'data' => $this->client->get("newssentiment/sources"),
-            ],
-            200
-        );
+        return $this->client->get("newssentiment/sources");
     }
 
 
