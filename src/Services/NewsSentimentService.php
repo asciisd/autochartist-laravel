@@ -30,7 +30,7 @@ class NewsSentimentService extends AbstractService
 
         $sectors = [];
         foreach ($this->getSectors() as $item) {
-            $sectors[$item['name']] = str_replace(' ', '_', ucwords($item['name']));
+            $sectors[$item] = str_replace(' ', '_', ucwords($item));
         }
 
         return [
