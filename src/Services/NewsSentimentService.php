@@ -20,7 +20,7 @@ class NewsSentimentService extends AbstractService
         // Default values, only applied when the user did not supply them.
         $query = array_merge([
             'strong_sentiment' => 'false',
-            'include_details' => 'false',
+            'include_details' => 'true ',
         ], $query);
 
         // Normalize boolean-like flags to the 'true'/'false' strings the API expects.
