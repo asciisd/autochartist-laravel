@@ -28,7 +28,7 @@ class NewsSentimentService extends AbstractService
             $query[$flag] = filter_var($query[$flag], FILTER_VALIDATE_BOOLEAN) ? 'true' : 'false';
         }
 
-        $sectors = collect($this->getSectors()['data'])->mapWithKeys(function ($item) {
+        $sectors = collect($this->getSectors())->mapWithKeys(function ($item) {
             return [$item => str_replace(' ', '_', ucwords($item['name']))];
         })->toArray();
 
