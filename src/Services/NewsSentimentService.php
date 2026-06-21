@@ -28,18 +28,16 @@ class NewsSentimentService extends AbstractService
             $query[$flag] = filter_var($query[$flag], FILTER_VALIDATE_BOOLEAN) ? 'true' : 'false';
         }
 
-        $sectors = collect($this->getSectors())->mapWithKeys(function ($item) {
-            return [$item => str_replace(' ', '_', ucwords($item['name']))];
-        })->toArray();
+        $sectors = [];
+        foreach ($this->getSectors() as $item) {
+            $sectors[$item['name']] = str_replace(' ', '_', ucwords($item['name']));
+        }
 
-        return response()->json(
-            [
-                'sectors' => $sectors,
-                'sentiments' => NewsSentimentSentiments::options(),
-                'data' => $this->client->get('newssentiment/sentiment', $query),
-            ],
-            200
-        );
+        return [
+            'sectors' => $sectors,
+            'sentiments' => NewsSentimentSentiments::options(),
+            'data' => $this->client->get('newssentiment/sentiment', $query),
+        ];
     }
 
     /**
@@ -51,15 +49,12 @@ class NewsSentimentService extends AbstractService
     public function getExtremeScoreChange(array $query = []): array
     {
         if (!empty($query['date_input'])) {
-            $query['date_input'] = now()->format('Y-m-d');
+            $query['date_input'] = date('Y-m-d');
         }
-        
-        return response()->json(
-            [
-                'data' => $this->client->get("newssentiment/extremescorechange", $query),
-            ],
-            200
-        );
+
+        return [
+            'data' => $this->client->get("newssentiment/extremescorechange", $query),
+        ];
     }
 
     /**
@@ -72,15 +67,12 @@ class NewsSentimentService extends AbstractService
     {
         
         if (!empty($query['date_input'])) {
-            $query['date_input'] = now()->format('Y-m-d');
+            $query['date_input'] = date('Y-m-d');
         }
-        
-        return response()->json(
-            [
-                'data' => $this->client->get("newssentiment/significant_sentiment", $query),
-            ],
-            200
-        );
+
+        return [
+            'data' => $this->client->get("newssentiment/significant_sentiment", $query),
+        ];
     }
 
     public function getHistory(array $query = []): array

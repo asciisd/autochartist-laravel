@@ -12,12 +12,9 @@ class TechnicalAnalysisService extends AbstractService
      */
     public function technicalTradeSetups(array $query = []): array
     {
-        return response()->json(
-            [
-                'data' => $this->client->get('to/resources/results', $query),
-            ],
-            200
-        );
+        return [
+            'data' => $this->client->get('to/resources/results', $query),
+        ];
     }
 
     /**
@@ -29,11 +26,8 @@ class TechnicalAnalysisService extends AbstractService
      */
     public function getPatternResultDetails(string $type, string $uid): array
     {
-        return response()->json(
-            [
-                'data' => $this->client->get("to/resources/results/details/{$type}/{$uid}"),
-            ],
-            200
-        );
+        return [
+            'data' => $this->client->get("to/resources/results/details/{$type}/{$uid}"),
+        ];
     }
 }
