@@ -14,7 +14,7 @@ class NewsSentimentService extends AbstractService
      * @param array<string, mixed> $query
      * @return array<mixed>
      */
-    public function getSentiment(array $query = []): array
+    public function getSentiment(array $query = [])
     {
 
         // Default values, only applied when the user did not supply them.
@@ -48,7 +48,7 @@ class NewsSentimentService extends AbstractService
      * @param array<string, mixed> $query
      * @return array<mixed>
      */
-    public function getExtremeScoreChange(array $query = []): array
+    public function getExtremeScoreChange(array $query = [])
     {
         if (!empty($query['date_input'])) {
             $query['date_input'] = now()->format('Y-m-d');
@@ -68,7 +68,7 @@ class NewsSentimentService extends AbstractService
      * @param array<string, mixed> $query
      * @return array<mixed>
      */
-    public function getSignificantSentiment(array $query = []): array
+    public function getSignificantSentiment(array $query = [])
     {
         
         if (!empty($query['date_input'])) {
@@ -83,7 +83,7 @@ class NewsSentimentService extends AbstractService
         );
     }
 
-    public function getHistory(array $query = []): array
+    public function getHistory(array $query = [])
     {
 
         // Default values, only applied when the user did not supply them.
@@ -100,7 +100,7 @@ class NewsSentimentService extends AbstractService
         );
     }
 
-    public function getSectors(): array
+    public function getSectors()
     {
         return response()->json(
             [
@@ -110,7 +110,7 @@ class NewsSentimentService extends AbstractService
         );
     }
 
-    public function getSources(): array
+    public function getSources()
     {
         return response()->json(
             [
