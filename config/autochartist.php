@@ -15,6 +15,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Economic Calendar (EIA) Base URL
+    |--------------------------------------------------------------------------
+    |
+    | The Economic Calendar is served from a different host than the main
+    | API. A trailing slash is optional; it is normalised before each request.
+    |
+    */
+    'eia_url' => env('AUTOCHARTIST_EIA_URL', 'https://eia.autochartist.com'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Credentials
     |--------------------------------------------------------------------------
     |

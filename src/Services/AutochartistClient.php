@@ -15,19 +15,16 @@ class AutochartistClient
      * Perform an authenticated GET request against the Autochartist API.
      *
      * @param  array<string, mixed>  $query
+     * @param  string|null  $baseUrl  Override the configured base URL for this request.
      * @return array<mixed>
      *
      * @throws AutochartistException
      */
-    public function get(string $path, array $query = []): array
+    public function get(string $path, array $query = [], ?string $baseUrl = null): array
     {
-        if (config('autochartist.style') === 'dark') {
-            $query['style'] = 'ds';
-        }
-
         $response = Http::get(
-            $this->buildUrl($path),
-            array_merge($query, $this->authenticator->credentials())
+            $this->buildUrl($path, $baseUrl),
+            $this->parameters($query)
         );
 
         if ($response->failed()) {
@@ -38,11 +35,47 @@ class AutochartistClient
     }
 
     /**
-     * Join the configured base URL with the endpoint path using a single slash.
+     * Build a fully signed, authenticated URL without performing a request.
+     *
+     * Useful for endpoints that are embedded directly (e.g. iframes) rather
+     * than fetched server-side.
+     *
+     * @param  array<string, mixed>  $query
+     * @param  string|null  $baseUrl  Override the configured base URL.
+     *
+     * @throws AutochartistException
      */
-    public function buildUrl(string $path, $base = null): string
+    public function signedUrl(string $path, array $query = [], ?string $baseUrl = null): string
     {
-        $base = $base ?? rtrim((string) config('autochartist.url'), '/');
+        return $this->buildUrl($path, $baseUrl)
+            . '?' . http_build_query($this->parameters($query));
+    }
+
+    /**
+     * Merge the request query with the style flag and authentication credentials.
+     *
+     * @param  array<string, mixed>  $query
+     * @return array<string, mixed>
+     *
+     * @throws AutochartistException
+     */
+    private function parameters(array $query): array
+    {
+        if (config('autochartist.style') === 'dark') {
+            $query['style'] = 'ds';
+        }
+
+        return array_merge($query, $this->authenticator->credentials());
+    }
+
+    /**
+     * Join the base URL with the endpoint path using a single slash.
+     *
+     * When no base URL is provided, the configured default is used.
+     */
+    public function buildUrl(string $path, ?string $baseUrl = null): string
+    {
+        $base = rtrim($baseUrl ?? (string) config('autochartist.url'), '/');
 
         return $base . '/' . ltrim($path, '/');
     }

@@ -2,23 +2,19 @@
 
 namespace Asciisd\AutochartistLaravel\Services;
 
-use Illuminate\Support\Facades\Http;
-use Asciisd\AutochartistLaravel\Exceptions\AutochartistException;
-
 class EconomicCalendar extends AbstractService
 {
-
-    protected string $base = 'https://eia.autochartist.com/calendar/';
-
+    /**
+     * Build the signed Economic Calendar URL for embedding (e.g. in an iframe).
+     *
+     * The calendar is served from a dedicated host (config: autochartist.eia_url)
+     * that differs from the main Autochartist API base URL.
+     */
     public function getEconomicCalendar(): string
     {
-        $url = $this->client->buildUrl($this->base);
-        $response = Http::get($url);
-
-        if ($response->failed()) {
-            throw AutochartistException::requestFailed($response->status(), $response->body());
-        }
-
-        return $url;
+        return $this->client->signedUrl(
+            path: 'calendar/',
+            baseUrl: (string) config('autochartist.eia_url'),
+        );
     }
 }
