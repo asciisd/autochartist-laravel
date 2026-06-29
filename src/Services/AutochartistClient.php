@@ -40,9 +40,9 @@ class AutochartistClient
     /**
      * Join the configured base URL with the endpoint path using a single slash.
      */
-    private function buildUrl(string $path): string
+    public function buildUrl(string $path, $base = null): string
     {
-        $base = rtrim((string) config('autochartist.url'), '/');
+        $base = $base ?? rtrim((string) config('autochartist.url'), '/');
 
         return $base . '/' . ltrim($path, '/');
     }
