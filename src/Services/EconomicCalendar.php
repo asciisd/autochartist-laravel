@@ -10,10 +10,11 @@ class EconomicCalendar extends AbstractService
      * The calendar is served from a dedicated host (config: autochartist.eia_url)
      * that differs from the main Autochartist API base URL.
      */
-    public function getEconomicCalendar(): string
+    public function getEconomicCalendar(array $query = []): string
     {
         return $this->client->signedUrl(
             path: 'calendar/',
+            query: $query,
             baseUrl: (string) config('autochartist.eia_url'),
         );
     }
