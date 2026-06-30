@@ -5,7 +5,8 @@ namespace Asciisd\AutochartistLaravel;
 use Asciisd\AutochartistLaravel\Services\TechnicalAnalysisService;
 use Asciisd\AutochartistLaravel\Services\MarketAlertsService;
 use Asciisd\AutochartistLaravel\Services\NewsSentimentService;
-use Asciisd\AutochartistLaravel\Services\EconomicCalendar;
+use Asciisd\AutochartistLaravel\Services\EconomicCalendarService;
+use Asciisd\AutochartistLaravel\Services\PerformanceStatisticsService;
 
 class AutochartistManager
 {
@@ -13,7 +14,8 @@ class AutochartistManager
         private TechnicalAnalysisService $technicalAnalysis,
         private MarketAlertsService $marketAlerts,
         private NewsSentimentService $newsSentiment,
-        private EconomicCalendar $economicCalendar
+        private EconomicCalendarService $economicCalendar,
+        private PerformanceStatisticsService $performanceStatistics
     ) {
     }
 
@@ -32,8 +34,13 @@ class AutochartistManager
         return $this->newsSentiment;
     }
 
-    public function economicCalendar(): EconomicCalendar
+    public function economicCalendar(): EconomicCalendarService
     {
         return $this->economicCalendar;
+    }
+
+    public function performanceStatistics(): PerformanceStatisticsService
+    {
+        return $this->performanceStatistics;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Asciisd\AutochartistLaravel\Services;
 
-class EconomicCalendar extends AbstractService
+class EconomicCalendarService extends AbstractService
 {
     /**
      * Build the signed Economic Calendar URL for embedding (e.g. in an iframe).
