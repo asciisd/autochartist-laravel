@@ -61,6 +61,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Request Timeout
+    |--------------------------------------------------------------------------
+    |
+    | Maximum number of seconds to wait for an Autochartist response. A
+    | request that exceeds it (or cannot connect) is raised as an
+    | AutochartistException rather than hanging the calling request.
+    |
+    */
+    'timeout' => (int) env('AUTOCHARTIST_TIMEOUT', 10),
+
+    /*
+    |--------------------------------------------------------------------------
     | Styles
     |--------------------------------------------------------------------------
     |

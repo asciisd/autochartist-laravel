@@ -41,6 +41,7 @@ AUTOCHARTIST_BROKER_ID=your-broker-id
 AUTOCHARTIST_SECRET_KEY=your-secret-key
 AUTOCHARTIST_ACCOUNT_TYPE=demo
 AUTOCHARTIST_TOKEN_TTL=259200
+AUTOCHARTIST_TIMEOUT=10
 ```
 
 | Variable | Required | Description |
@@ -50,6 +51,7 @@ AUTOCHARTIST_TOKEN_TTL=259200
 | `AUTOCHARTIST_SECRET_KEY` | Yes | The secret used to sign the request token. Keep this private. |
 | `AUTOCHARTIST_ACCOUNT_TYPE` | No | `demo` or `live`. Defaults to `demo`. |
 | `AUTOCHARTIST_TOKEN_TTL` | No | How long (in seconds) a generated token stays valid. Defaults to `259200` (3 days). |
+| `AUTOCHARTIST_TIMEOUT` | No | Seconds to wait for an Autochartist response before raising an `AutochartistException`. Defaults to `10`. |
 
 ## Usage
 

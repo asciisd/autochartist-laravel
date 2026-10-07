@@ -3,6 +3,7 @@
 namespace Asciisd\AutochartistLaravel\Services;
 
 use Asciisd\AutochartistLaravel\Exceptions\AutochartistException;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 
 class AutochartistClient
@@ -22,10 +23,14 @@ class AutochartistClient
      */
     public function get(string $path, array $query = [], ?string $baseUrl = null): array
     {
-        $response = Http::get(
-            $this->buildUrl($path, $baseUrl),
-            $this->parameters($query)
-        );
+        try {
+            $response = Http::timeout($this->timeout())->get(
+                $this->buildUrl($path, $baseUrl),
+                $this->parameters($query)
+            );
+        } catch (ConnectionException $exception) {
+            throw AutochartistException::connectionFailed($exception->getMessage(), $exception);
+        }
 
         if ($response->failed()) {
             throw AutochartistException::requestFailed($response->status(), $response->body());
@@ -66,6 +71,14 @@ class AutochartistClient
         }
 
         return array_merge($query, $this->authenticator->credentials());
+    }
+
+    /**
+     * Seconds to wait for Autochartist before giving up.
+     */
+    private function timeout(): int
+    {
+        return (int) config('autochartist.timeout', 10);
     }
 
     /**

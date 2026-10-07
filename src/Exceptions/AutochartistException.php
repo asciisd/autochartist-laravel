@@ -3,6 +3,7 @@
 namespace Asciisd\AutochartistLaravel\Exceptions;
 
 use Exception;
+use Throwable;
 
 class AutochartistException extends Exception
 {
@@ -19,5 +20,10 @@ class AutochartistException extends Exception
     public static function requestFailed(int $status, string $body): self
     {
         return new self("Autochartist request failed with status [{$status}]: {$body}");
+    }
+
+    public static function connectionFailed(string $message, ?Throwable $previous = null): self
+    {
+        return new self("Autochartist request could not be completed: {$message}", 0, $previous);
     }
 }
